@@ -124,7 +124,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
           className="glass-panel overflow-hidden mb-8 relative"
           whileHover={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" }}
         >
-          {/* Add animated gradient background to the input area */}
+          {/* Animated gradient background */}
           <motion.div 
             className="absolute -inset-1 rounded-xl bg-gradient-to-r from-brand-purple-light via-pink-400 to-brand-purple opacity-50 blur-sm"
             animate={{
@@ -142,32 +142,35 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
             }}
           />
           
-          <form onSubmit={handleSubmit} className="flex items-center relative z-10">
-            <Input
-              type="text"
-              placeholder="Show me the most common RCA failure issues and corresponding CLCAs"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-6 bg-transparent"
-            />
-            <Button 
-              type="submit" 
-              variant="ghost" 
-              className="text-brand-purple hover:text-brand-purple-dark hover:bg-transparent px-4"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <motion.div 
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                >
-                  <div className="w-5 h-5 border-2 border-brand-purple border-t-transparent rounded-full" />
-                </motion.div>
-              ) : (
-                <Send size={20} />
-              )}
-            </Button>
-          </form>
+          {/* White input box, smaller than the gradient container */}
+          <div className="m-1.5 bg-white rounded-lg relative z-10">
+            <form onSubmit={handleSubmit} className="flex items-center">
+              <Input
+                type="text"
+                placeholder="Show me the most common RCA failure issues and corresponding CLCAs"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-6 bg-transparent"
+              />
+              <Button 
+                type="submit" 
+                variant="ghost" 
+                className="text-brand-purple hover:text-brand-purple-dark hover:bg-transparent px-4"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <motion.div 
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  >
+                    <div className="w-5 h-5 border-2 border-brand-purple border-t-transparent rounded-full" />
+                  </motion.div>
+                ) : (
+                  <Send size={20} />
+                )}
+              </Button>
+            </form>
+          </div>
         </motion.div>
         
         {!response && !isLoading && (
