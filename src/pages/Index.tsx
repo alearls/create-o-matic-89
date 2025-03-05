@@ -1,13 +1,30 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import Navbar from '@/components/Navbar';
+import Sidebar from '@/components/Sidebar';
+import ChatInterface from '@/components/ChatInterface';
+import InsightsPanel from '@/components/InsightsPanel';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Index = () => {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <motion.div 
+      className="min-h-screen flex flex-col bg-white"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Navbar />
+      
+      <div className="flex flex-1 overflow-hidden">
+        {!isMobile && <Sidebar />}
+        <ChatInterface className="flex-1" />
+        {!isMobile && <InsightsPanel />}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

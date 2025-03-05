@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,22 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				brand: {
+					purple: '#7c3aed',
+					'purple-light': '#9061f9',
+					'purple-dark': '#6d28d9',
+					white: '#ffffff',
+					'gray-50': '#f9fafb',
+					'gray-100': '#f3f4f6',
+					'gray-200': '#e5e7eb',
+					'gray-300': '#d1d5db',
+					'gray-400': '#9ca3af',
+					'gray-500': '#6b7280',
+					'gray-600': '#4b5563',
+					'gray-700': '#374151',
+					'gray-800': '#1f2937',
+					'gray-900': '#111827'
 				}
 			},
 			borderRadius: {
@@ -70,25 +87,67 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
+				},
+				'fade-in': {
+					from: { opacity: '0' },
+					to: { opacity: '1' }
+				},
+				'fade-up': {
+					from: { 
+						opacity: '0',
+						transform: 'translateY(10px)'
 					},
-					to: {
-						height: '0'
+					to: { 
+						opacity: '1',
+						transform: 'translateY(0)'
 					}
+				},
+				'slide-in-right': {
+					from: { 
+						opacity: '0',
+						transform: 'translateX(20px)'
+					},
+					to: { 
+						opacity: '1',
+						transform: 'translateX(0)'
+					}
+				},
+				'slide-in-left': {
+					from: { 
+						opacity: '0',
+						transform: 'translateX(-20px)'
+					},
+					to: { 
+						opacity: '1',
+						transform: 'translateX(0)'
+					}
+				},
+				'pulse-gentle': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.8' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.5s ease-out',
+				'fade-up': 'fade-up 0.5s ease-out',
+				'slide-in-right': 'slide-in-right 0.5s ease-out',
+				'slide-in-left': 'slide-in-left 0.5s ease-out',
+				'pulse-gentle': 'pulse-gentle 2s infinite ease-in-out'
+			},
+			backdropFilter: {
+				'none': 'none',
+				'blur': 'blur(20px)'
+			},
+			boxShadow: {
+				'glass': '0 4px 30px rgba(0, 0, 0, 0.1)'
 			}
 		}
 	},
