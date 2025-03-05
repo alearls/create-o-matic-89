@@ -35,22 +35,42 @@ const Response: React.FC<ResponseProps> = ({ message }) => {
         <span className="font-medium text-lg">OPS-GURU</span>
       </div>
       
-      <div className="glass-panel p-6 mb-4 text-left">
-        <p className="text-brand-gray-800 leading-relaxed">{message}</p>
+      <div className="relative">
+        {/* Animated background */}
+        <motion.div 
+          className="absolute -inset-1 rounded-xl bg-gradient-to-r from-brand-purple via-brand-purple-light to-pink-400 opacity-75 blur-sm"
+          animate={{
+            background: [
+              'linear-gradient(to right, #7c3aed, #9061f9, #d946ef)',
+              'linear-gradient(to right, #d946ef, #7c3aed, #9061f9)',
+              'linear-gradient(to right, #9061f9, #d946ef, #7c3aed)',
+              'linear-gradient(to right, #7c3aed, #9061f9, #d946ef)',
+            ],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            repeatType: "loop",
+          }}
+        />
         
-        {/* Sample chart or data visualization */}
-        <div className="mt-8 flex justify-center">
-          <motion.div 
-            className="w-full max-w-lg h-60 bg-brand-gray-100 rounded-lg flex items-center justify-center text-brand-gray-400"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            <div className="flex flex-col items-center">
-              <BarChart size={40} strokeWidth={1.5} />
-              <p className="mt-2 text-sm font-medium">Sample Visualization</p>
-            </div>
-          </motion.div>
+        <div className="glass-panel p-6 mb-4 text-left relative z-10">
+          <p className="text-brand-gray-800 leading-relaxed">{message}</p>
+          
+          {/* Sample chart or data visualization */}
+          <div className="mt-8 flex justify-center">
+            <motion.div 
+              className="w-full max-w-lg h-60 bg-brand-gray-100 rounded-lg flex items-center justify-center text-brand-gray-400"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
+              <div className="flex flex-col items-center">
+                <BarChart size={40} strokeWidth={1.5} />
+                <p className="mt-2 text-sm font-medium">Sample Visualization</p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
       
