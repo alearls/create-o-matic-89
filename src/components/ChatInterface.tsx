@@ -35,42 +35,22 @@ const Response: React.FC<ResponseProps> = ({ message }) => {
         <span className="font-medium text-lg">OPS-GURU</span>
       </div>
       
-      <div className="relative">
-        {/* Animated background */}
-        <motion.div 
-          className="absolute -inset-1 rounded-xl bg-gradient-to-r from-brand-purple via-brand-purple-light to-pink-400 opacity-75 blur-sm"
-          animate={{
-            background: [
-              'linear-gradient(to right, #7c3aed, #9061f9, #d946ef)',
-              'linear-gradient(to right, #d946ef, #7c3aed, #9061f9)',
-              'linear-gradient(to right, #9061f9, #d946ef, #7c3aed)',
-              'linear-gradient(to right, #7c3aed, #9061f9, #d946ef)',
-            ],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            repeatType: "loop",
-          }}
-        />
+      <div className="glass-panel p-6 mb-4 text-left">
+        <p className="text-brand-gray-800 leading-relaxed">{message}</p>
         
-        <div className="glass-panel p-6 mb-4 text-left relative z-10">
-          <p className="text-brand-gray-800 leading-relaxed">{message}</p>
-          
-          {/* Sample chart or data visualization */}
-          <div className="mt-8 flex justify-center">
-            <motion.div 
-              className="w-full max-w-lg h-60 bg-brand-gray-100 rounded-lg flex items-center justify-center text-brand-gray-400"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-            >
-              <div className="flex flex-col items-center">
-                <BarChart size={40} strokeWidth={1.5} />
-                <p className="mt-2 text-sm font-medium">Sample Visualization</p>
-              </div>
-            </motion.div>
-          </div>
+        {/* Sample chart or data visualization */}
+        <div className="mt-8 flex justify-center">
+          <motion.div 
+            className="w-full max-w-lg h-60 bg-brand-gray-100 rounded-lg flex items-center justify-center text-brand-gray-400"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
+            <div className="flex flex-col items-center">
+              <BarChart size={40} strokeWidth={1.5} />
+              <p className="mt-2 text-sm font-medium">Sample Visualization</p>
+            </div>
+          </motion.div>
         </div>
       </div>
       
@@ -119,58 +99,36 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Main chat input area with enhanced styling */}
         <motion.div 
-          className="mb-8 relative"
+          className="glass-panel overflow-hidden mb-8"
           whileHover={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" }}
         >
-          {/* Animated gradient background - making it more prominent with higher opacity */}
-          <motion.div 
-            className="absolute -inset-1 rounded-xl bg-gradient-to-r from-brand-purple-light via-pink-400 to-brand-purple opacity-70 blur-sm"
-            animate={{
-              background: [
-                'linear-gradient(to right, #9061f9, #d946ef, #7c3aed)',
-                'linear-gradient(to right, #7c3aed, #9061f9, #d946ef)',
-                'linear-gradient(to right, #d946ef, #7c3aed, #9061f9)',
-                'linear-gradient(to right, #9061f9, #d946ef, #7c3aed)',
-              ],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              repeatType: "loop",
-            }}
-          />
-          
-          {/* White input box, smaller than the gradient container */}
-          <div className="m-2.5 bg-white rounded-lg relative z-10 shadow-sm">
-            <form onSubmit={handleSubmit} className="flex items-center">
-              <Input
-                type="text"
-                placeholder="Show me the most common RCA failure issues and corresponding CLCAs"
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-6 bg-transparent"
-              />
-              <Button 
-                type="submit" 
-                variant="ghost" 
-                className="text-brand-purple hover:text-brand-purple-dark hover:bg-transparent px-4"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <motion.div 
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  >
-                    <div className="w-5 h-5 border-2 border-brand-purple border-t-transparent rounded-full" />
-                  </motion.div>
-                ) : (
-                  <Send size={20} />
-                )}
-              </Button>
-            </form>
-          </div>
+          <form onSubmit={handleSubmit} className="flex items-center">
+            <Input
+              type="text"
+              placeholder="Show me the most common RCA failure issues and corresponding CLCAs"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-6 bg-transparent"
+            />
+            <Button 
+              type="submit" 
+              variant="ghost" 
+              className="text-brand-purple hover:text-brand-purple-dark hover:bg-transparent px-4"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                >
+                  <div className="w-5 h-5 border-2 border-brand-purple border-t-transparent rounded-full" />
+                </motion.div>
+              ) : (
+                <Send size={20} />
+              )}
+            </Button>
+          </form>
         </motion.div>
         
         {!response && !isLoading && (
