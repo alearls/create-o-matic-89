@@ -121,12 +121,12 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
       >
         {/* Main chat input area with enhanced styling */}
         <motion.div 
-          className="glass-panel overflow-hidden mb-8 relative"
+          className="mb-8 relative"
           whileHover={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" }}
         >
-          {/* Animated gradient background */}
+          {/* Animated gradient background - making it more prominent with higher opacity */}
           <motion.div 
-            className="absolute -inset-1 rounded-xl bg-gradient-to-r from-brand-purple-light via-pink-400 to-brand-purple opacity-50 blur-sm"
+            className="absolute -inset-1 rounded-xl bg-gradient-to-r from-brand-purple-light via-pink-400 to-brand-purple opacity-70 blur-sm"
             animate={{
               background: [
                 'linear-gradient(to right, #9061f9, #d946ef, #7c3aed)',
@@ -143,7 +143,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
           />
           
           {/* White input box, smaller than the gradient container */}
-          <div className="m-1.5 bg-white rounded-lg relative z-10">
+          <div className="m-2.5 bg-white rounded-lg relative z-10 shadow-sm">
             <form onSubmit={handleSubmit} className="flex items-center">
               <Input
                 type="text"
