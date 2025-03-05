@@ -119,11 +119,30 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
+        {/* Main chat input area with enhanced styling */}
         <motion.div 
-          className="glass-panel overflow-hidden mb-8"
+          className="glass-panel overflow-hidden mb-8 relative"
           whileHover={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" }}
         >
-          <form onSubmit={handleSubmit} className="flex items-center">
+          {/* Add animated gradient background to the input area */}
+          <motion.div 
+            className="absolute -inset-1 rounded-xl bg-gradient-to-r from-brand-purple-light via-pink-400 to-brand-purple opacity-50 blur-sm"
+            animate={{
+              background: [
+                'linear-gradient(to right, #9061f9, #d946ef, #7c3aed)',
+                'linear-gradient(to right, #7c3aed, #9061f9, #d946ef)',
+                'linear-gradient(to right, #d946ef, #7c3aed, #9061f9)',
+                'linear-gradient(to right, #9061f9, #d946ef, #7c3aed)',
+              ],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+          />
+          
+          <form onSubmit={handleSubmit} className="flex items-center relative z-10">
             <Input
               type="text"
               placeholder="Show me the most common RCA failure issues and corresponding CLCAs"
