@@ -84,14 +84,15 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
   
   // Update the context's setPrompt function to update the local state too
   useEffect(() => {
-    setContextPrompt((text: string) => {
-      setPrompt(text);
-      return text;
+    setContextPrompt((prevSetter) => {
+      return (text: string) => {
+        setPrompt(text);
+        return prevSetter(text);
+      };
     });
   }, [setContextPrompt]);
   
   const samplePhrases = [
-    "Deep dive my RDR opportunities",
     "Summarise CSAT customer comments",
     "Generate EOY Performance review",
     "Build me an account summary"
@@ -121,14 +122,16 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
       >
         {/* Logo and Title Section */}
         <motion.div
-          className="text-center mb-6"
+          className="mb-6 flex flex-col items-start"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <Logo className="mx-auto mb-3" showText={false} />
-          <h1 className="text-2xl font-bold text-brand-gray-800 mb-2">OPS GURU</h1>
-          <p className="text-brand-gray-500 text-lg">Your superhuman intelligent strategic advisor!</p>
+          <div className="flex items-center gap-3">
+            <Logo className="w-10 h-10" showText={false} />
+            <h1 className="text-2xl font-bold text-brand-gray-800">OPS GURU</h1>
+          </div>
+          <p className="text-brand-gray-500 text-xl mt-1">Your superhuman intelligent strategic advisor!</p>
         </motion.div>
         
         {/* Enhanced Chat Input Area */}
@@ -168,12 +171,12 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
                     placeholder="Ask OPS-GURU a question..."
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
-                    className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-6 bg-transparent text-lg"
+                    className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-4 bg-transparent text-lg"
                   />
                   <Button 
                     type="submit" 
                     variant="default"
-                    className="bg-brand-purple hover:bg-brand-purple-dark text-white px-6 py-6 h-auto"
+                    className="bg-brand-purple hover:bg-brand-purple-dark text-white px-4 py-2"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -181,7 +184,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                       >
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
                       </motion.div>
                     ) : (
                       <>Go</>

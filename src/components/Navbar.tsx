@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import Logo from './Logo';
 import UserAvatar from './UserAvatar';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
@@ -39,8 +38,6 @@ const Navbar: React.FC<NavbarProps> = ({
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-10">
-          <Logo textClassName="text-white" />
-          
           <nav className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => (
               <motion.a
