@@ -39,14 +39,7 @@ const Navbar: React.FC<NavbarProps> = ({
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-10">
-          <div className="flex items-center gap-3">
-            <img 
-              src="https://media-hosting.imagekit.io//fd4ff149a12845e9/og2.jpg?Expires=1835112713&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=shXJbjb7eHf8WsZiaQYXviJOQEzCJI1hFaa38MzKwLKFRtaLW7TEaBO~oUFIgA18ZBGF3hsPPlvDTQ8F4rfReWGctbB3Oydc-8ljx7TYJngl2RBSVBCFI9aKcsQOJjUWzg4N8Vl6Anp~jMecMzvQ1YfbkZi94UlRnP4J7ZCk~sNUAVUUYWgJSVULmNYgSvLdOfSBseJ5wOGd7s3F5MHVRf1BL8Bevrrdeppqn~u8lo58WFAYGRbfMXj-njcRVJ6ercSHwXsmJq5FjKyNBbTWtQS09i2Pcbk4J6t9lfRSEjGVaoBw3v1autvAI6cQc5NXGvhMUJ9Hv7yA4By7hkh51g__" 
-              alt="OPS-GURU Logo" 
-              className="h-10 w-auto rounded"
-            />
-            <Logo textClassName="text-white" />
-          </div>
+          <Logo textClassName="text-white" />
           
           <nav className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => (
