@@ -25,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({
   return (
     <motion.header 
       className={cn(
-        "sticky top-0 z-50 w-full bg-brand-purple shadow-sm border-b border-brand-purple-dark", 
+        "sticky top-0 z-50 w-full bg-[#6747F6] shadow-sm border-b border-[#5235E4]", 
         className
       )}
       initial={{ y: -100 }}
