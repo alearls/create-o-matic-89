@@ -3,18 +3,37 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { LightbulbIcon, BarChart, TrendingUp, DollarSign } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
+
+// Create a Context to share state between components
+import { createContext, useContext, useState } from 'react';
+
+// Define the context type
+interface ChatContextType {
+  setPrompt: (text: string) => void;
+}
+
+// Create the context with a default value
+export const ChatContext = createContext<ChatContextType>({
+  setPrompt: () => {},
+});
+
+// Custom hook to use the chat context
+export const useChatContext = () => useContext(ChatContext);
 
 interface InsightsItemProps {
   title: string;
   description: string;
+  onClick: () => void;
 }
 
-const InsightsItem: React.FC<InsightsItemProps> = ({ title, description }) => {
+const InsightsItem: React.FC<InsightsItemProps> = ({ title, description, onClick }) => {
   return (
     <motion.div 
-      className="insight-card"
+      className="insight-card cursor-pointer"
       whileHover={{ y: -5, scale: 1.02 }}
       transition={{ duration: 0.2 }}
+      onClick={onClick}
     >
       <div className="flex flex-col gap-2">
         <h4 className="font-medium text-brand-gray-900">{title}</h4>
@@ -29,6 +48,9 @@ interface InsightsPanelProps {
 }
 
 const InsightsPanel: React.FC<InsightsPanelProps> = ({ className }) => {
+  const { toast } = useToast();
+  const { setPrompt } = useChatContext();
+  
   const insights = [
     {
       title: "What are my opportunities and risks",
@@ -47,6 +69,15 @@ const InsightsPanel: React.FC<InsightsPanelProps> = ({ className }) => {
       description: "detailing the top and bottom quartile performers across each metric, along with a readout on opportunities for improvement?"
     }
   ];
+  
+  const handleInsightClick = (insightTitle: string, insightDescription: string) => {
+    const fullPrompt = `${insightTitle} ${insightDescription}`;
+    setPrompt(fullPrompt);
+    toast({
+      title: "Prompt loaded",
+      description: "The insight has been loaded into the chat box"
+    });
+  };
   
   return (
     <motion.div 
@@ -69,6 +100,7 @@ const InsightsPanel: React.FC<InsightsPanelProps> = ({ className }) => {
             key={index}
             title={insight.title}
             description={insight.description}
+            onClick={() => handleInsightClick(insight.title, insight.description)}
           />
         ))}
       </div>
