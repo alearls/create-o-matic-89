@@ -32,6 +32,7 @@ const Response: React.FC<ResponseProps> = ({ message }) => {
       transition={{ duration: 0.5 }}
     >
       <div className="flex items-center gap-3 mb-4">
+        <Logo showText={false} className="w-8 h-8" />
         <span className="font-medium text-lg">OPS-GURU</span>
       </div>
       
@@ -39,31 +40,17 @@ const Response: React.FC<ResponseProps> = ({ message }) => {
         <div className="bg-white rounded-xl p-6 mb-4 text-left shadow-md">
           <p className="text-brand-gray-800 leading-relaxed">{message}</p>
           
-          {/* Sample chart visualization */}
+          {/* Sample chart or data visualization */}
           <div className="mt-8 flex justify-center">
             <motion.div 
-              className="w-full max-w-lg h-60 bg-brand-gray-100 rounded-lg flex items-center justify-center"
+              className="w-full max-w-lg h-60 bg-brand-gray-100 rounded-lg flex items-center justify-center text-brand-gray-400"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-full h-full p-4">
-                  <div className="relative w-full h-full">
-                    <div className="absolute bottom-0 left-0 w-full h-full flex items-end">
-                      {[35, 65, 45, 80, 55, 30, 70, 50, 60, 40].map((height, i) => (
-                        <div 
-                          key={i}
-                          className="w-full mx-0.5 bg-[#6747F6] opacity-80 rounded-t-sm"
-                          style={{ height: `${height}%` }}
-                        />
-                      ))}
-                    </div>
-                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-300" />
-                    <div className="absolute left-0 h-full w-0.5 bg-gray-300" />
-                  </div>
-                </div>
-                <p className="text-sm font-medium text-gray-500">RCA Failure Analysis by Type</p>
+              <div className="flex flex-col items-center">
+                <BarChart size={40} strokeWidth={1.5} />
+                <p className="mt-2 text-sm font-medium">Sample Visualization</p>
               </div>
             </motion.div>
           </div>
@@ -94,13 +81,18 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { setPrompt: setContextPrompt } = useChatContext();
   
-  // Fix the build error by properly handling the context
+  // Update the context's setPrompt function to update the local state too
   useEffect(() => {
-    if (setContextPrompt) {
-      const originalSetPrompt = setContextPrompt;
-      originalSetPrompt(prompt);
-    }
-  }, [prompt, setContextPrompt]);
+    setContextPrompt((prevSetter: any) => {
+      return (text: string) => {
+        setPrompt(text);
+        if (prevSetter) {
+          return prevSetter(text);
+        }
+        return text;
+      };
+    });
+  }, [setContextPrompt]);
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,21 +118,19 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
       >
         {/* Logo and Title Section */}
         <motion.div
-          className="mb-6 flex items-start"
+          className="mb-6 flex flex-col items-start"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
           <div className="flex items-center gap-3">
             <Logo className="w-10 h-10" showText={false} />
-            <div className="flex flex-col items-start">
-              <h1 className="text-2xl font-bold text-[#6747F6]">OPS GURU</h1>
-              <p className="text-brand-gray-500 text-lg mt-1">Your superhuman intelligent strategic advisor!</p>
-            </div>
+            <h1 className="text-2xl font-bold text-[#6747F6]">OPS GURU</h1>
           </div>
+          <p className="text-brand-gray-500 text-xl mt-1">Your superhuman intelligent strategic advisor!</p>
         </motion.div>
         
-        {/* Simplified Chat Input Area with animated gradient */}
+        {/* Simplified Chat Input Area */}
         <motion.div 
           className="mb-8 relative"
           whileHover={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" }}
@@ -154,44 +144,46 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
                 'linear-gradient(to right, #8066F9, #6747F6, #8066F9)',
                 'linear-gradient(to right, #6747F6, #8066F9, #6747F6)',
               ],
-              opacity: [0.6, 0.8, 0.6],
-              scale: [1, 1.02, 1],
             }}
             transition={{
-              duration: 5,
+              duration: 10,
               repeat: Infinity,
-              repeatType: "reverse",
+              repeatType: "loop",
             }}
           />
           
           {/* White input box with margin to make it smaller */}
           <div className="m-2.5 bg-white rounded-lg relative z-10 shadow-sm p-3">
-            <form onSubmit={handleSubmit} className="flex items-center gap-2">
-              <Input
-                type="text"
-                placeholder="Ask OPS-GURU a question..."
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-2 bg-transparent text-base"
-              />
-              <Button 
-                type="submit" 
-                variant="default"
-                className="bg-[#6747F6] hover:bg-[#5235E4] text-white"
-                disabled={isLoading}
-                size="sm"
-              >
-                {isLoading ? (
-                  <motion.div 
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+              <div className="w-full">
+                <div className="flex items-center">
+                  <Input
+                    type="text"
+                    placeholder="Ask OPS-GURU a question..."
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-2 bg-transparent text-base"
+                  />
+                  <Button 
+                    type="submit" 
+                    variant="default"
+                    className="bg-[#6747F6] hover:bg-[#5235E4] text-white px-3 py-1"
+                    disabled={isLoading}
+                    size="sm"
                   >
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                  </motion.div>
-                ) : (
-                  <>Go</>
-                )}
-              </Button>
+                    {isLoading ? (
+                      <motion.div 
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      >
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+                      </motion.div>
+                    ) : (
+                      <>Go</>
+                    )}
+                  </Button>
+                </div>
+              </div>
             </form>
           </div>
         </motion.div>
