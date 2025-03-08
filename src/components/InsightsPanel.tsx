@@ -31,8 +31,8 @@ interface InsightsItemProps {
 const InsightsItem: React.FC<InsightsItemProps> = ({ title, description, onClick, icon }) => {
   return (
     <motion.div 
-      className="insight-card cursor-pointer relative p-3 h-[115px] flex flex-col"
-      whileHover={{ y: -3, scale: 1.02, boxShadow: "0 10px 25px -5px rgba(103, 71, 246, 0.1), 0 8px 10px -6px rgba(103, 71, 246, 0.05)" }}
+      className="insight-card cursor-pointer overflow-hidden relative p-4"
+      whileHover={{ y: -5, scale: 1.02, boxShadow: "0 10px 25px -5px rgba(103, 71, 246, 0.1), 0 8px 10px -6px rgba(103, 71, 246, 0.05)" }}
       transition={{ duration: 0.2 }}
       onClick={onClick}
     >
@@ -43,16 +43,16 @@ const InsightsItem: React.FC<InsightsItemProps> = ({ title, description, onClick
         transition={{ duration: 0.3 }}
       />
       
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col">
         {/* Icon positioned at the top */}
-        <div className="p-2 rounded-full bg-[#6747F6]/10 text-[#6747F6] self-start mb-2 flex-shrink-0">
+        <div className="p-2 rounded-full bg-[#6747F6]/10 text-[#6747F6] self-start mb-3">
           {icon}
         </div>
         
         {/* Insight content with more space */}
-        <div className="flex flex-col gap-1 flex-grow">
-          <h4 className="font-medium text-brand-gray-900 text-sm">{title}</h4>
-          <p className="text-xs text-brand-gray-600 line-clamp-3">{description}</p>
+        <div className="flex flex-col gap-1">
+          <h4 className="font-medium text-brand-gray-900">{title}</h4>
+          <p className="text-sm text-brand-gray-600">{description}</p>
         </div>
       </div>
     </motion.div>
@@ -103,19 +103,19 @@ const InsightsPanel: React.FC<InsightsPanelProps> = ({ className }) => {
   return (
     <motion.div 
       className={cn(
-        "h-[calc(100vh-4rem)] w-72 border-l border-brand-gray-200 py-4 px-3 bg-gradient-to-b from-white to-[#F9F8FF]",
+        "h-[calc(100vh-4rem)] w-72 border-l border-brand-gray-200 py-6 px-4 bg-gradient-to-b from-white to-[#F9F8FF]",
         className
       )}
       initial={{ x: 50, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <div className="flex items-center gap-2 mb-4">
-        <Zap size={18} className="text-[#6747F6]" />
-        <h3 className="text-base font-semibold text-brand-gray-800">Recent Insights</h3>
+      <div className="flex items-center gap-2 mb-6">
+        <Zap size={20} className="text-[#6747F6]" />
+        <h3 className="text-lg font-semibold text-brand-gray-800">Recent Insights</h3>
       </div>
       
-      <div className="grid grid-cols-1 gap-3">
+      <div className="flex flex-col gap-5">
         {insights.map((insight, index) => (
           <InsightsItem 
             key={index}
@@ -126,6 +126,20 @@ const InsightsPanel: React.FC<InsightsPanelProps> = ({ className }) => {
           />
         ))}
       </div>
+      
+      <motion.div 
+        className="mt-8 p-4 rounded-lg bg-[#6747F6]/5 border border-[#6747F6]/10"
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.2 }}
+      >
+        <h4 className="font-medium text-[#6747F6] mb-2 flex items-center gap-2">
+          <LightbulbIcon size={16} />
+          <span>Pro Tip</span>
+        </h4>
+        <p className="text-sm text-brand-gray-600">
+          Click on any insight card to automatically load it into the chat input, then press Go to analyze.
+        </p>
+      </motion.div>
     </motion.div>
   );
 };
