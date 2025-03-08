@@ -22,7 +22,7 @@ const Logo: React.FC<LogoProps> = ({
       transition={{ duration: 0.5 }}
     >
       <motion.div 
-        className="relative w-10 h-10 rounded-full flex items-center justify-center overflow-hidden"
+        className="relative w-[10.5rem] h-[10.5rem] rounded-full flex items-center justify-center overflow-hidden"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >

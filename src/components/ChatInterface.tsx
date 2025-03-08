@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { useChatContext } from './InsightsPanel';
+import TypeWriter from './TypeWriter';
 
 interface ResponseProps {
   message: string;
@@ -131,7 +132,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
           transition={{ duration: 0.6 }}
         >
           <div className="flex items-center gap-3">
-            <Logo className="w-10 h-10" showText={false} />
+            <Logo className="w-[10.5rem] h-[10.5rem]" showText={false} />
             <div className="flex flex-col items-start">
               <h1 className="text-2xl font-bold text-[#6747F6]">OPS GURU</h1>
               <p className="text-brand-gray-500 text-lg mt-1">Your superhuman intelligent strategic advisor!</p>
@@ -144,8 +145,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
           className="mb-8 relative rounded-xl"
           whileHover={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" }}
         >
-          {/* Solid gradient border */}
-          <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-[#6747F6] via-[#8066F9] to-[#A78BFC]"></div>
+          {/* Increase border size and make it a solid gradient border */}
+          <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[#6747F6] via-[#8066F9] to-[#A78BFC]"></div>
           
           {/* White input box */}
           <div className="relative z-10 bg-white rounded-lg p-3">
@@ -172,7 +173,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
                   </motion.div>
                 ) : (
-                  <>Go</>
+                  <Send size={16} />
                 )}
               </Button>
             </form>
