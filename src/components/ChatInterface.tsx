@@ -132,7 +132,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
           transition={{ duration: 0.6 }}
         >
           <div className="flex items-center gap-3">
-            <Logo className="w-[10.5rem] h-[10.5rem]" showText={false} />
+            <Logo className="w-10 h-10" showText={false} />
             <div className="flex flex-col items-start">
               <h1 className="text-2xl font-bold text-[#6747F6]">OPS GURU</h1>
               <p className="text-brand-gray-500 text-lg mt-1">Your superhuman intelligent strategic advisor!</p>
