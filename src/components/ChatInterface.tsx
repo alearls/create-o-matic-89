@@ -97,8 +97,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
   // Fix the build error by properly handling the context
   useEffect(() => {
     if (setContextPrompt) {
-      const originalSetPrompt = setContextPrompt;
-      originalSetPrompt(prompt);
+      setContextPrompt(prompt);
     }
   }, [prompt, setContextPrompt]);
   
@@ -140,32 +139,16 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
           </div>
         </motion.div>
         
-        {/* Simplified Chat Input Area with animated gradient */}
+        {/* Chatbox with solid gradient border */}
         <motion.div 
-          className="mb-8 relative"
+          className="mb-8 relative rounded-xl"
           whileHover={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" }}
         >
-          {/* Animated gradient background */}
-          <motion.div 
-            className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[#6747F6]/70 via-[#8066F9]/70 to-[#6747F6]/70 opacity-70 blur-sm"
-            animate={{
-              background: [
-                'linear-gradient(to right, #6747F6, #8066F9, #6747F6)',
-                'linear-gradient(to right, #8066F9, #6747F6, #8066F9)',
-                'linear-gradient(to right, #6747F6, #8066F9, #6747F6)',
-              ],
-              opacity: [0.6, 0.8, 0.6],
-              scale: [1, 1.02, 1],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          />
+          {/* Solid gradient border */}
+          <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-[#6747F6] via-[#8066F9] to-[#A78BFC]"></div>
           
-          {/* White input box with margin to make it smaller */}
-          <div className="m-2.5 bg-white rounded-lg relative z-10 shadow-sm p-3">
+          {/* White input box */}
+          <div className="relative z-10 bg-white rounded-lg p-3">
             <form onSubmit={handleSubmit} className="flex items-center gap-2">
               <Input
                 type="text"

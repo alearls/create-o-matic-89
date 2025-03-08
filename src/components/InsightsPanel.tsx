@@ -31,7 +31,7 @@ interface InsightsItemProps {
 const InsightsItem: React.FC<InsightsItemProps> = ({ title, description, onClick, icon }) => {
   return (
     <motion.div 
-      className="insight-card cursor-pointer overflow-hidden relative"
+      className="insight-card cursor-pointer overflow-hidden relative p-4"
       whileHover={{ y: -5, scale: 1.02, boxShadow: "0 10px 25px -5px rgba(103, 71, 246, 0.1), 0 8px 10px -6px rgba(103, 71, 246, 0.05)" }}
       transition={{ duration: 0.2 }}
       onClick={onClick}
@@ -43,10 +43,13 @@ const InsightsItem: React.FC<InsightsItemProps> = ({ title, description, onClick
         transition={{ duration: 0.3 }}
       />
       
-      <div className="flex items-start gap-3 p-4">
-        <div className="p-2 rounded-full bg-[#6747F6]/10 text-[#6747F6]">
+      <div className="flex flex-col">
+        {/* Icon positioned at the top */}
+        <div className="p-2 rounded-full bg-[#6747F6]/10 text-[#6747F6] self-start mb-3">
           {icon}
         </div>
+        
+        {/* Insight content with more space */}
         <div className="flex flex-col gap-1">
           <h4 className="font-medium text-brand-gray-900">{title}</h4>
           <p className="text-sm text-brand-gray-600">{description}</p>
@@ -68,22 +71,22 @@ const InsightsPanel: React.FC<InsightsPanelProps> = ({ className }) => {
     {
       title: "What are my opportunities and risks",
       description: "if I want to improve my business' RDR by 20% ? Generate a plan and bridge for me.",
-      icon: <TrendingUp size={16} />
+      icon: <TrendingUp size={18} />
     },
     {
       title: "Generate an E2E account summary for BOEING",
       description: "including health score, open cases, previous DSATs and any pipeline deals.",
-      icon: <BarChart size={16} />
+      icon: <BarChart size={18} />
     },
     {
       title: "Summarize any customer comments",
       description: "and include overall CSAT score in the current quarter, highlighting opportunities for our team to improve.",
-      icon: <LightbulbIcon size={16} />
+      icon: <LightbulbIcon size={18} />
     },
     {
       title: "Can you provide an EOY report for my team",
       description: "detailing the top and bottom quartile performers across each metric, along with a readout on opportunities for improvement?",
-      icon: <DollarSign size={16} />
+      icon: <DollarSign size={18} />
     }
   ];
   
@@ -112,7 +115,7 @@ const InsightsPanel: React.FC<InsightsPanelProps> = ({ className }) => {
         <h3 className="text-lg font-semibold text-brand-gray-800">Recent Insights</h3>
       </div>
       
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-5">
         {insights.map((insight, index) => (
           <InsightsItem 
             key={index}

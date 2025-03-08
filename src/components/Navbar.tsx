@@ -38,6 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-10">
+          <h1 className="text-white text-xl font-bold mr-6">OPS GURU</h1>
           <nav className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => (
               <motion.a
