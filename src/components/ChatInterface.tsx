@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { useChatContext } from './InsightsPanel';
+import TypeWriter from './TypeWriter';
 
 interface ResponseProps {
   message: string;
@@ -20,7 +20,6 @@ const Response: React.FC<ResponseProps> = ({ message }) => {
   };
 
   const sendEmail = () => {
-    // This would integrate with email functionality
     toast.success('Email option selected');
   };
 
@@ -39,7 +38,6 @@ const Response: React.FC<ResponseProps> = ({ message }) => {
         <div className="bg-white rounded-xl p-6 mb-4 text-left shadow-md">
           <p className="text-brand-gray-800 leading-relaxed">{message}</p>
           
-          {/* Sample chart visualization */}
           <div className="mt-8 flex justify-center">
             <motion.div 
               className="w-full max-w-lg h-60 bg-brand-gray-100 rounded-lg flex items-center justify-center"
@@ -94,7 +92,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { setPrompt: setContextPrompt } = useChatContext();
   
-  // Fix the build error by properly handling the context
   useEffect(() => {
     if (setContextPrompt) {
       setContextPrompt(prompt);
@@ -107,7 +104,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
     
     setIsLoading(true);
     
-    // Simulate API call
     setTimeout(() => {
       setResponse("The most common RCA failure issues are:\n\n1. Lack of communication/skill: This issue is often addressed through coaching and documentation. It occurs 20 times.\n\n2. Did not follow process or policy: This issue is also frequently addressed through coaching, and it occurs 19 times.\n\n3. Scale Misinterpretation: This issue is addressed through managing customer expectations, customer education, or no action taken/possible, depending on the specific case. It occurs 14 times.\n\nOther common issues include delayed contact with customers, known issues/design limitations, and agent lack of technical skill or product knowledge. These issues are addressed through various CLCAs such as coaching, training, verbal feedback, and managing customer expectations.");
       setIsLoading(false);
@@ -123,7 +119,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Logo and Title Section */}
         <motion.div
           className="mb-6 flex items-start"
           initial={{ opacity: 0, y: -20 }}
@@ -139,24 +134,38 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ className }) => {
           </div>
         </motion.div>
         
-        {/* Chatbox with solid gradient border */}
         <motion.div 
           className="mb-8 relative rounded-xl"
           whileHover={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" }}
         >
-          {/* Solid gradient border */}
-          <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-[#6747F6] via-[#8066F9] to-[#A78BFC]"></div>
+          <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[#6747F6] via-[#9061F9] to-[#F43F5E]"></div>
           
-          {/* White input box */}
           <div className="relative z-10 bg-white rounded-lg p-3">
             <form onSubmit={handleSubmit} className="flex items-center gap-2">
-              <Input
-                type="text"
-                placeholder="Ask OPS-GURU a question..."
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-2 bg-transparent text-base"
-              />
+              <div className="flex-1 text-left">
+                <div className="flex items-center">
+                  <span className="text-brand-gray-500 mr-1">Ask OPS-GURU </span>
+                  <span className="text-brand-gray-500">to...</span>
+                  <div className="ml-1 text-brand-gray-500">
+                    <TypeWriter
+                      texts={[
+                        "deep dive your RDR and break it down by product and RCA",
+                        "review DSAT QTD and build an automated bridge plan"
+                      ]}
+                      typingSpeed={50}
+                      deletingSpeed={30}
+                      delayBetweenTexts={1000}
+                    />
+                  </div>
+                </div>
+                <Input
+                  type="text"
+                  placeholder=""
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  className="w-full border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-2 bg-transparent text-base mt-0 p-0 h-0 opacity-0 absolute"
+                />
+              </div>
               <Button 
                 type="submit" 
                 variant="default"
